@@ -1,3 +1,5 @@
+from array import array
+from functools import reduce
 import numpy as np
 
 class Perceptron:
@@ -23,7 +25,6 @@ class Perceptron:
         self.n_iter = n_iter
 
     def fit(self, X, y):
-
         """Fit training data.
 
         Parameters
@@ -40,9 +41,20 @@ class Perceptron:
 
         """
         self.w_ = np.zeros(1 + X.shape[1])
-
-        # TODO: Put your code
+        for _ in range(1,self.n_iter):
+            for i in range(0,X.shape[0]):
+                expected_y = self.output(X[i])
+                self.updateWeights(X[i],expected_y, y[i])
         return self
+
+    def updateWeights(self, X, expected_y, y):
+        self.w_[0] += self.eta*(y - expected_y)
+        for i in range(1, len(self.w_)):
+            self.w_[i] += self.eta*(y - expected_y)*X[i-1]
+
+    def output(self, X):
+        result = np.dot(X, self.w_[1:]) + self.w_[0]
+        return 1 if result >= 0 else -1
 
     def predict(self, X):
         """Return class label.
@@ -50,5 +62,4 @@ class Perceptron:
             Second apply the step function
             Return a list with classes
         """
-
-        # TODO: Put your code
+        return list(map(self.output, X))
