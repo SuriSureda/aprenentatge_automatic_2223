@@ -41,8 +41,18 @@ class Adaline:
         """
         self.w_ = np.zeros(1 + X.shape[1])
         self.cost_ = []
+        self.errors_ = []
 
-        # TODO: Put your code here!
+        for _ in range(self.n_iter):
+            update = []
+            for xi, target in zip(X, y): 
+                diff = target - self.predict(xi)
+                update.append(-self.eta * diff)
+            # UPDATE WEIGHTS
+            self.w_[0] += np.sum(update)
+            self.w_[1:] += np.dot(update, X)
+
+        return self
 
 
     def net_input(self, X):
