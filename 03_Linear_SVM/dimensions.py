@@ -1,3 +1,4 @@
+from matplotlib import test
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.datasets import make_classification
@@ -14,12 +15,10 @@ X, y = make_classification(n_samples=400, n_features=5, n_redundant=0, n_repeate
                            random_state=9)
 
 # Separar les dades: train_test_split
-
-# TODO
+X_train, X_test, y_train, y_test = train_test_split(X, y,  shuffle=True, random_state=123, test_size=0.25)
 
 # Estandaritzar les dades: StandardScaler
-
-# TODO
+X_train = StandardScaler.fit_transform(X_train)
 
 # Entrenam una SVM linear (classe SVC)
 
