@@ -22,7 +22,7 @@ perceptron.fit(X_transformed, y)
 y_prediction = perceptron.predict(X)
 
 #Entrenam una SVM linear (classe SVC)
-svm = SVC(C=1.0, kernel='linear')
+svm = SVC(C=1000.0, kernel='linear')
 svm.fit(X_transformed, y)
 
 
